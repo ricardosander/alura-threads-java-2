@@ -15,7 +15,7 @@ public class ServidorTarefas {
 			Socket socket = serverSocket.accept();
 			
 			System.out.println("Aceitando novo cliente na porta " + socket.getPort());
-
+			new Thread(new DistribuirTarefas(socket)).start();
 		}
 	}
 }
