@@ -11,8 +11,11 @@ public class ServidorTarefas {
 		System.out.println("---- Iniciando Servidor -----");
 		ServerSocket serverSocket = new ServerSocket(12345);
 		while(true) {
+			
 			Socket socket = serverSocket.accept();
+			
 			System.out.println("Aceitando novo cliente na porta " + socket.getPort());
+
 		}
 	}
 }
