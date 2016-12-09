@@ -22,11 +22,13 @@ public class DistribuirTarefas implements Runnable {
 			
 			while (entradaCliente.hasNextLine()) {
 				String comando = entradaCliente.nextLine();
-				System.out.println("Executando comando: \n" + comando + "\n por " + this.socket.getPort());
+				System.out.println("Executando comando: \n" + comando + "\npor " + this.socket.getPort());
 			}
 			entradaCliente.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			System.out.println("Indo embora da thread: " + socket.getPort());
 		}
 	}
 

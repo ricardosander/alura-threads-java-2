@@ -7,21 +7,23 @@ import java.util.Scanner;
 public class ClienteTarefas {
 
 	public static void main(String[] args) throws Exception {
-		
+
 		Socket socket = new Socket("localhost", 12345);
-		
+
 		System.out.println("Conexão estabelecida.");
-		
+
 		Scanner teclado = new Scanner(System.in);
-		
-		System.out.println("Digite o comando: ");
-		
-		String comando = teclado.nextLine();
 		PrintStream saida = new PrintStream(socket.getOutputStream());
-		saida.println(comando);
-		
-		teclado.nextLine();
-		
+
+		System.out.println("(quit para sair)Digite o comando: ");
+
+		String comando;
+		do {
+
+			comando = teclado.nextLine();
+			saida.println(comando);
+		} while (!comando.toLowerCase().equals("quit"));
+
 		teclado.close();
 		saida.close();
 		socket.close();
