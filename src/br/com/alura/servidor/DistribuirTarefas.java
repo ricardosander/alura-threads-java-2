@@ -14,7 +14,7 @@ public class DistribuirTarefas implements Runnable {
 	@Override
 	public void run() {
 
-		System.out.println("Distribuindo as tarefas para o cliente " + socket.getPort());
+		System.out.println("\n\n" + socket.getPort() + " entrou na sala.");
 
 		try {
 			
@@ -22,13 +22,15 @@ public class DistribuirTarefas implements Runnable {
 			
 			while (entradaCliente.hasNextLine()) {
 				String comando = entradaCliente.nextLine();
-				System.out.println("Executando comando: \n" + comando + "\npor " + this.socket.getPort());
+				
+				System.out.println("\n" + socket.getPort() + " falou:");
+				System.out.println(comando);
 			}
 			entradaCliente.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			System.out.println("Indo embora da thread: " + socket.getPort());
+			System.out.println("\n\n" + socket.getPort() + " saiu da sala.");
 		}
 	}
 
