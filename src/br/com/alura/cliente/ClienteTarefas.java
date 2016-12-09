@@ -15,9 +15,12 @@ public class ClienteTarefas {
 		Scanner teclado = new Scanner(System.in);
 		
 		System.out.println("Digite o comando: ");
+		
 		String comando = teclado.nextLine();
 		PrintStream saida = new PrintStream(socket.getOutputStream());
 		saida.println(comando);
+		
+		teclado.nextLine();
 		
 		teclado.close();
 		saida.close();
