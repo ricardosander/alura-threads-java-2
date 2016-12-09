@@ -16,7 +16,7 @@ public class ServidorTarefas {
 		System.out.println("---- Iniciando Servidor -----");
 		ServerSocket serverSocket = new ServerSocket(12345);
 		
-		threadPool.scheduleAtFixedRate(new MostraHora(), 0, 1, TimeUnit.MINUTES);
+		threadPool.scheduleAtFixedRate(new MostraHora(), 0, 30, TimeUnit.SECONDS);
 		while (true) {
 			
 			Socket socket = serverSocket.accept();
