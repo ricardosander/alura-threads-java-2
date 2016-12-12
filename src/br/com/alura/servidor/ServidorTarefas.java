@@ -18,8 +18,8 @@ public class ServidorTarefas {
 
 		System.out.println("---- Iniciando Servidor -----");
 		this.servidor = new ServerSocket(12345);
-		this.threadPool = Executors.newCachedThreadPool(new FabricaDeThreads());
-//		this.threadPool = Executors.newFixedThreadPool(2, new FabricaDeThreads());
+		this.threadPool = Executors.newCachedThreadPool(new FabricaDeThreads(Executors.defaultThreadFactory()));
+//		this.threadPool = Executors.newFixedThreadPool(2, new FabricaDeThreads(Executors.defaultThreadFactory()));
 		this.estaRodando = new AtomicBoolean(true);
 	}
 
