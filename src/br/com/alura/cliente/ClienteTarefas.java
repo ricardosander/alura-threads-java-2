@@ -1,8 +1,6 @@
 package br.com.alura.cliente;
 
-import java.io.PrintStream;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ClienteTarefas {
 
@@ -11,21 +9,17 @@ public class ClienteTarefas {
 		Socket socket = new Socket("localhost", 12345);
 
 		System.out.println("Conexão estabelecida.");
+		
+		Thread threadEnviaComando = new Thread(new EnviadorDeComandos(socket));
+		Thread threadRecebeResposta = new Thread(new RecebedorDeResposta(socket));
 
-		Scanner teclado = new Scanner(System.in);
-		PrintStream saida = new PrintStream(socket.getOutputStream());
-
-		System.out.println("(quit para sair)Digite o comando: ");
-
-		String comando;
-		do {
-
-			comando = teclado.nextLine();
-			saida.println(comando);
-		} while (!comando.toLowerCase().equals("quit"));
-
-		teclado.close();
-		saida.close();
+		threadEnviaComando.start();
+		threadRecebeResposta.start();
+		
+		threadEnviaComando.join();
+		
+		System.out.println("Encerrando comunicação.");
+		
 		socket.close();
 	}
 }
