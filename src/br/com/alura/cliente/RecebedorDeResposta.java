@@ -17,7 +17,7 @@ public class RecebedorDeResposta implements Runnable {
 
 		try {
 			
-			System.out.println("recebendo dados do servidor");
+			System.out.println("Recebendo respostas do servidor");
 			
 			Scanner respostaServidor = new Scanner(socket.getInputStream());
 			

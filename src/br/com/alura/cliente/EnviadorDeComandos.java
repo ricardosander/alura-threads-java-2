@@ -23,7 +23,12 @@ public class EnviadorDeComandos implements Runnable {
 
 			saida = new PrintStream(this.socket.getOutputStream());
 
-			System.out.println("(quit para sair)\nDigite o comando: ");
+			System.out.println("\n\nComandos suportados: "
+					+ "\nc1 - faz c1"
+					+ "\nc2 - faz c2"
+					+ "\nfim - programa servidor para finalização"
+					+ "\nquit: desconecta-se do servidor"
+					+ "\n\nDigite o comando: ");
 
 			String comando;
 			do {
