@@ -1,4 +1,4 @@
-package br.com.alura.cliente;
+package br.com.alura.servidor;
 
 import java.io.PrintStream;
 

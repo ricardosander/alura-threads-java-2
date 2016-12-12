@@ -5,9 +5,6 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 
-import br.com.alura.cliente.ComandoC1;
-import br.com.alura.cliente.ComandoC2;
-
 public class DistribuirTarefas implements Runnable {
 
 	private Socket socket;
@@ -35,11 +32,6 @@ public class DistribuirTarefas implements Runnable {
 
 				comando = entradaCliente.nextLine();
 
-				if (comando.trim().toLowerCase().equals("fim")) {
-					System.out.println("\n\nDesligando servidor...");
-					this.servidor.parar();
-				}
-
 				System.out.println("\nComando enviado por " + this.socket.getPort() + ": " + comando);
 
 				switch (comando) {
@@ -58,6 +50,11 @@ public class DistribuirTarefas implements Runnable {
 					ComandoC2 c2 = new ComandoC2(saidaCliente);
 					this.threadPool.execute(c2);
 
+					break;
+				case "fim":
+					
+					System.out.println("\n\nDesligando servidor...");
+					this.servidor.parar();
 					break;
 
 				default:
