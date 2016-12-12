@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-import javax.management.RuntimeErrorException;
-
 public class RecebedorDeResposta implements Runnable {
 
 	private Socket socket;
@@ -19,7 +17,7 @@ public class RecebedorDeResposta implements Runnable {
 
 		try {
 			
-			System.out.println("recebendo dados od servidor");
+			System.out.println("recebendo dados do servidor");
 			
 			Scanner respostaServidor = new Scanner(socket.getInputStream());
 			
