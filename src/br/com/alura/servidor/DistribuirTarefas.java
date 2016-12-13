@@ -3,6 +3,7 @@ package br.com.alura.servidor;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -11,11 +12,24 @@ public class DistribuirTarefas implements Runnable {
 	private Socket socket;
 	private ServidorTarefas servidor;
 	private ExecutorService threadPool;
+	private BlockingQueue<String> filaComandos;
 
-	public DistribuirTarefas(ExecutorService threadPool, Socket socket, ServidorTarefas servidor) {
+	public DistribuirTarefas(ExecutorService threadPool, BlockingQueue<String> filaComandos, Socket socket, ServidorTarefas servidor) {
 		this.threadPool = threadPool;
+		this.filaComandos = filaComandos;
 		this.socket = socket;
 		this.servidor = servidor;
+		this.iniciarConsumidores();
+	}
+
+	private void iniciarConsumidores() {
+		
+		int quantidadeConsumidores = 2;
+		for (int i = 0; i < quantidadeConsumidores; i++) {
+			
+			TarefaConsumir consumir = new TarefaConsumir(filaComandos);
+			this.threadPool.execute(consumir);
+		}
 	}
 
 	@Override
@@ -57,6 +71,14 @@ public class DistribuirTarefas implements Runnable {
 					JuntaResultadosFutureWSFutureBanco juntaResultados = new JuntaResultadosFutureWSFutureBanco(futureWS, futureDB, saidaCliente);
 					this.threadPool.submit(juntaResultados);
 
+					break;
+				case "c3":
+					
+					System.out.println("Adicionando comando c3 na fila. Origem: " + socket.getPort());
+					this.filaComandos.put(comando);
+					saidaCliente.print("Comando c3 adicionado na fila.");
+					System.out.println("Comando c3 adicionado na fila. Origem: " + socket.getPort());
+					
 					break;
 				case "fim":
 					
